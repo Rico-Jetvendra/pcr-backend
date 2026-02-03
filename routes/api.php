@@ -87,3 +87,8 @@ Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
 });
 // End Artisan
+
+
+Route::get('/test-auth-header', function () {
+    return request()->header('Authorization');
+});
