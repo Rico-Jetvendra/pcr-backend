@@ -17,7 +17,7 @@ Route::post('/users/resetConfirm', [\App\Http\Controllers\UsersController::class
 Route::put('/users/reset/{id}', [\App\Http\Controllers\UsersController::class, 'reset'])->name('users.reset');
 
 // Custom URL
-Route::get('/menu/all', [\App\Http\Controllers\MenuController::class, 'all'])->name('menu.all');
+Route::get('/menu/all', [\App\Http\Controllers\MenuController::class, 'all'])->middleware('auth:api')->name('menu.all');
 Route::get('/menu/details/{id}', [\App\Http\Controllers\MenuController::class, 'details'])->middleware('auth:api')->name('menu.details');
 
 Route::get('/invoice/details/{id}', [\App\Http\Controllers\InvoiceController::class, 'details'])->middleware('auth:api')->name('invoice.details');
