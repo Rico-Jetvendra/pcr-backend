@@ -13,6 +13,9 @@ class Users extends Authenticatable implements JWTSubject{
     protected $primaryKey = "id";
     protected $table = 'tbl_user';
     public $timestamps = false;
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     /**
      * fillable
      *
