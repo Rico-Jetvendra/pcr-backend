@@ -12,8 +12,8 @@ use App\Http\Resources\UsersResource;
 use App\Mail\ForgotPassword;
 use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
-use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UsersController extends Controller{
 
