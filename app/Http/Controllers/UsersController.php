@@ -12,7 +12,7 @@ use App\Http\Resources\UsersResource;
 use App\Mail\ForgotPassword;
 use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UsersController extends Controller{
