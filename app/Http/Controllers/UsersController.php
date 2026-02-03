@@ -363,21 +363,21 @@ class UsersController extends Controller{
             //     return response()->json(['error' => 'Unauthorized'], 401);
             // }
 
-            // $users = DB::select('CALL sp_login(?)', [$request->email]);
-            $users = Users::select(DB::raw('tbl_user.*, th_role.role_name'))->leftJoin('th_role', 'tbl_user.roleid', '=', 'th_role.id')->where('tbl_user.deleted', '=', '0')->where('tbl_user.email', '=', $request->email)->first();
+            $users = DB::select('CALL sp_login(?)', [$request->email]);
+            // $users = Users::select(DB::raw('tbl_user.*, th_role.role_name'))->leftJoin('th_role', 'tbl_user.roleid', '=', 'th_role.id')->where('tbl_user.deleted', '=', '0')->where('tbl_user.email', '=', $request->email)->first();
 
             if($users == null){
                 return response()->json(['success' => false, 'message' => 'There`s no user with that email.'], 200);
             }
 
-            if(!Hash::check($request->password, $users->password)){
-                return response()->json(['messages' => 'Unauthorized', 'password' => $users->password], 401);
+            if(!Hash::check($request->password, $users['password'])){
+                return response()->json(['messages' => 'Unauthorized', 'password' => $users['password']], 401);
             }
 
             $token = JWTAuth::fromUser($users);
-            $roles = DB::select('CALL sp_get_roles(?)', [$users->roleid]);
+            $roles = DB::select('CALL sp_get_roles(?)', [$users['roleid']]);
 
-            if($users->status == 0){
+            if($users['status'] == 0){
                 return response()->json(['success' => false, 'message' => 'Login Successful'], 200);
             }
 
