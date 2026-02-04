@@ -132,7 +132,8 @@ class UsersController extends Controller{
             'https://www.google.com/recaptcha/api/siteverify',
             [
                 'secret' => env('NOCAPTCHA_SECRET'),
-                'response' => $request->input('g-recaptcha-response'),
+                'response' => $request->recaptcha_token,
+                'remoteip' => $request->ip()
             ]
         );
 
