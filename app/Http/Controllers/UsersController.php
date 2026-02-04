@@ -162,7 +162,7 @@ class UsersController extends Controller{
                 $users = DB::select('CALL sp_users_create('.implode(', ', array_fill(0, count($data), "?")).')', $data);
 
                 if($users[0]->status == 1){
-                    if($request->type == 'email'){
+                    if($request->confirmType == 'email'){
                         $send = [
                             'subject' => 'Confirm your email address',
                             'title' => 'Confirmation Mail',
