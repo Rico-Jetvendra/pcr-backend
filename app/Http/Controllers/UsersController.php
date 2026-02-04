@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use App\Mail\ConfirmEmail;
 use App\Http\Resources\UsersResource;
 use App\Mail\ForgotPassword;
@@ -125,6 +126,18 @@ class UsersController extends Controller{
         //if validation fails
         if ($validator->fails()) {
             return response()->json(["messages" => $validator->errors()], 422);
+        }
+
+        $response = Http::asForm()->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            [
+                'secret' => env('NOCAPTCHA_SECRET'),
+                'response' => $request->input('g-recaptcha-response'),
+            ]
+        );
+
+        if (!$response->json('success')) {
+            return response()->json(['false' => true, 'message' => 'Captcha failed'], 422);
         }
 
         try {
